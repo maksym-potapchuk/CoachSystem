@@ -121,3 +121,17 @@ mkdir apps/<name>
 python manage.py startapp <name> apps/<name>
 ```
 
+## Branching & release flow
+
+Three-tier promotion: `feature/* → staging → main`.
+
+- **`main`** — production. Updated only by merging `staging` (releases).
+- **`staging`** — pre-production integration; features land here first for QA.
+- **`feature/<name>`** (`fix/<name>`, ...) — branch off `staging`, PR back into `staging`.
+
+Cycle: branch from `staging` → PR into `staging` → once stable, PR `staging → main` (release), leaving the two branches level again.
+Hotfix: `fix/*` off `main` → PR into `main` → back-merge `main → staging` to keep them aligned.
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/)
+(`feat:`, `fix:`, `docs:`, `chore:`, ...) with short, single-line subjects.
+
