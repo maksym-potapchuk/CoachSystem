@@ -1,0 +1,56 @@
+[project]
+name = "coachsystem"
+version = "0.1.0"
+description = "Employee training / learning platform — Django REST backend (modular monolith)."
+authors = [{ name = "CoachSystem" }]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "Django (>=5.0,<5.2)",
+    "djangorestframework (>=3.15)",
+    "djangorestframework-simplejwt (>=5.3)",
+    "django-environ (>=0.11)",
+    "psycopg[binary] (>=3.1)",
+    "django-cors-headers (>=4.3)",
+    "drf-spectacular (>=0.27)",
+    "django-structlog (>=10.1.0,<11.0.0)",
+]
+
+[project.optional-dependencies]
+# Production-only extras: install with `poetry install --extras prod`
+# or `pip install ".[prod]"`.
+prod = ["gunicorn (>=22.0)"]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+black = ">=24.0"
+ruff = ">=0.4"
+pytest = ">=8.0"
+pytest-django = ">=4.8"
+factory-boy = ">=3.3"
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.dev"
+python_files = ["test_*.py", "*_test.py"]
+testpaths = ["apps"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"*/settings/*.py" = ["F403", "F405"]
